@@ -1,5 +1,5 @@
 import fetch from './fetch';
-import { typesCreator } from './reducer';
+import { typesCreator } from './reducer/reducer';
 import {
     shouldLoadSingle,
     shouldLoadAll

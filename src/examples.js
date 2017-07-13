@@ -30,6 +30,20 @@ const componentProp = {
     }
 };
 
+const reducerSetup = {
+    endpoints: [
+        {
+            name: 'service',
+            childrens: [
+                {
+                    name: 'endpoint',
+                    directAccess: true,
+                }
+            ]
+        }
+    ]
+};
+
 const store = {
     redest: {
         service: {
