@@ -1,4 +1,4 @@
 export default (state, id) => ({
-    entity: state.entities[id] ? state.entities[id] : {},
+    entities: [state.entities[id] ? state.entities[id] : null].filter((value) => value),
     meta: state.meta[id] ? state.meta[id] : {}
 });

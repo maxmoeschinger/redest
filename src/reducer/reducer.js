@@ -7,7 +7,6 @@ import deleteReducer from './delete';
 import invalidate from './invalidate';
 import update from './update';
 
-
 export const newInitialState = (prefix) => ({
     entities: {},
     meta: {},
@@ -24,16 +23,7 @@ export const types = addPrefix(settings.internalPropPrefix, {
     INVALIDATE: 'INVALIDATE'
 });
 
-const buildReducer = (endpoints, parentEndpoints = []) => {
-    let reducers = {};
-    endpoints.forEach((endpoint) => {
-        const prefix = [...parentEndpoints, endpoint.name];
-        reducers[endpoint.name] = reducer(prefix, buildReducer(endpoint.children, prefix));
-    });
-    return reducers;
-};
-
-const reducer = (prefix, children) => (state = newInitialState(prefix), action) => {
+const reducer = (endpoints = [], prefix = []) => (state = newInitialState(prefix), action) => {
     if (action.prefix === prefix.join('_')) {
         switch (action.type) {
             case types.LOAD_ALL:
@@ -51,18 +41,27 @@ const reducer = (prefix, children) => (state = newInitialState(prefix), action) 
             default:
                 return state;
         }
-    } else if (Object.keys(children).length > 0) {
-        let newChildren = {};
-        Object.keys(children).forEach((childrenKey) => {
-            newChildren[childrenKey] = reducer([...prefix, childrenKey])(state.children[childrenKey], action);
-        });
-        return {
-            ...state,
-            children: newChildren
-        }
     }
 
-    return state;
+    let children = { ...state.children };
+
+    if (Array.isArray(endpoints)) {
+
+        endpoints.forEach((endpoint) => {
+            const currentPrefix = [...prefix, endpoint.name];
+            const childEndpoints = endpoint.children;
+            const childState = state.children ? state.children[endpoint.name] : undefined;
+
+            children[endpoint.name] = reducer(childEndpoints, currentPrefix)(childState, action);
+        });
+    }
+
+    return {
+        ...state,
+        children
+    };
 };
 
-export default (reducerSetup) => buildReducer(reducerSetup.endpoints);
+export default (reducerSetup) => ({
+    redest: (state, action) => reducer(reducerSetup.endpoints)(state, action).children
+});

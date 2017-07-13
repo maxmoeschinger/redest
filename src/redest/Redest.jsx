@@ -1,10 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import buildProps from './buildProps';
 import buildPropsForComponent from './buildPropsForComponent';
 import check from './check';
+import validateUserInput from './validateUserInput';
 
 export default (WrappedComponent, dataToRetrieve) => {
+    if (!validateUserInput(dataToRetrieve)) {
+        return () => (
+            <WrappedComponent/>
+        );
+    }
+
     class hoc extends React.Component {
         constructor(props) {
             super(props);
@@ -24,5 +30,5 @@ export default (WrappedComponent, dataToRetrieve) => {
         }
     }
 
-    return connect((state, ownProps) => buildProps(dataToRetrieve, state, ownProps))(hoc);
+    return connect((state, ownProps) => ({ redest: state.redest }))(hoc);
 }

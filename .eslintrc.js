@@ -1,15 +1,7 @@
-const OFF = 0;
-const ERROR = 2;
-
 module.exports = {
     "env": {
         "node": true,
         "es6": true
-    },
-    "settings": {
-        "react": {
-            "version": "15.3.0"
-        }
     },
     "parserOptions": {
         "ecmaVersion": 6,
@@ -42,14 +34,14 @@ module.exports = {
         "react/no-children-prop": "error",                          //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-children-prop.md
         "react/no-danger": "error",                                 //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-danger.md
         "react/no-did-mount-set-state": "error",                    //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-did-mount-set-state.md
-       "react/no-did-update-set-state": "error",                   //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-did-update-set-state.md
-       "react/no-will-update-set-state": "error",                  //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-will-update-set-state.md
+        "react/no-did-update-set-state": "error",                   //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-did-update-set-state.md
+        "react/no-will-update-set-state": "error",                  //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-will-update-set-state.md
         "react/no-direct-mutation-state": "error",                  //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-direct-mutation-state.md
         "react/no-multi-comp": ["error", {"ignoreStateless": true}],//https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md
-       "react/self-closing-comp": "error",                         //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md
+        "react/self-closing-comp": "error",                         //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md
         "react/require-render-return": "error",                     //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-render-return.md
-       "react/require-optimization": "warn",                       //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-optimization.md
-       "react/no-string-refs": "warn",                             //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md
+        "react/require-optimization": "warn",                       //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-optimization.md
+        "react/no-string-refs": "warn",                             //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md
         "react/no-unknown-property": "error",                       //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-unknown-property.md
         "react/no-unused-prop-types": "error",                      //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-unused-prop-types.md
         "react/prefer-stateless-function": "error",                 //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md
@@ -60,9 +52,9 @@ module.exports = {
         "react/jsx-curly-spacing": "error",                         //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md
         "react/jsx-equals-spacing": "error",                        //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-equals-spacing.md
         "react/jsx-filename-extension": "error",                    //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
-       "react/jsx-first-prop-new-line": ["error", "multiline"],    //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-first-prop-new-line.md
+        "react/jsx-first-prop-new-line": ["error", "multiline"],    //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-first-prop-new-line.md
         "react/jsx-key": "error",                                   //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-key.md
-       "react/jsx-max-props-per-line": "error",                    //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-max-props-per-line.md
+        "react/jsx-max-props-per-line": "error",                    //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-max-props-per-line.md
         "react/jsx-no-duplicate-props": "error",                    //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-duplicate-props.md
         "react/jsx-no-target-blank": "error",                       //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-target-blank.md
         "react/jsx-pascal-case": "error",                           //https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md

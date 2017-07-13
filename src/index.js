@@ -1,2 +1,2 @@
-export { default as redest } from './Redest';
-export { default as reducerSetup } from './reducer/reducer';
+export { default as redest } from './redest';
+export { default as reducerSetup } from './reducer';
