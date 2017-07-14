@@ -11,7 +11,6 @@ describe('reducer', () => {
         const result = {
             entities: {},
             meta: {},
-            prefix: 'service_test',
             children
         };
 
@@ -26,12 +25,10 @@ describe('reducer', () => {
             service: {
                 entities: {},
                 meta: {},
-                prefix: 'service',
                 children: {
                     endpoint: {
                         entities: {},
                         meta: {},
-                        prefix: 'service_endpoint',
                         children: {}
                     }
                 }

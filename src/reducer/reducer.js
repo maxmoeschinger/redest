@@ -13,7 +13,7 @@ export const newInitialState = () => ({
 });
 
 const reducer = (endpoints = [], prefix = []) => (state = newInitialState(), action) => {
-    if (action.prefix.join('_') === prefix.join('_')) {
+    if (Array.isArray(action) && action.prefix.join('_') === prefix.join('_')) {
         switch (action.type) {
             case types.LOAD_ALL:
                 return loadAll(state, action);
