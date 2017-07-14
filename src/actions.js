@@ -1,23 +1,17 @@
 import fetch from './fetch';
-import { typesCreator } from './reducer/reducer';
+import types from './types';
+
 import {
-    shouldLoadSingle,
-    shouldLoadAll
+    shouldLoad
 } from './selectors';
 
-const getIfNeeded = (types, baseUrl, prefix) => (id) => (dispatch, getState) => {
-    if (shouldLoadSingle(getState()[prefix], id)) {
-        dispatch(get(types, baseUrl)(id));
+export const getIfNeeded = (prefix, filter) => (dispatch, getState) => {
+    if (shouldLoad(getState(), prefix, filter)) {
+        dispatch(getAll(prefix, filter));
     }
 };
 
-const getAllIfNeeded = (types, baseUrl, prefix) => (filter = null) => (dispatch, getState) => {
-    if (shouldLoadAll(getState()[prefix], filter)) {
-        dispatch(getAll(types, baseUrl)(filter));
-    }
-};
-
-const getAll = (types, baseUrl) => (filter = null) => (dispatch) => {
+export const getAll = (prefix, filter = null) => (dispatch) => {
     dispatch({
         type: types.LOAD_ALL,
         status: 'start',
@@ -26,7 +20,7 @@ const getAll = (types, baseUrl) => (filter = null) => (dispatch) => {
         }
     });
 
-    fetch(baseUrl, 'GET', filter).then(
+    fetch('/' + prefix.join('/'), 'GET', filter).then(
         (entities) => {
             let newEntities = {};
             entities.forEach((entity) => {
@@ -54,14 +48,14 @@ const getAll = (types, baseUrl) => (filter = null) => (dispatch) => {
     );
 };
 
-const get = (types, baseUrl) => (id) => (dispatch) => {
+export const get = (prefix) => (id) => (dispatch) => {
     dispatch({
         type: types.LOAD_ONE,
         status: 'start',
         payload: id
     });
 
-    fetch(baseUrl + '/' + id, 'GET').then(
+    fetch('/' + prefix.join('/') + '/' + id, 'GET').then(
         (entity) => {
             dispatch({
                 type: types.LOAD_ONE,
@@ -82,8 +76,8 @@ const get = (types, baseUrl) => (id) => (dispatch) => {
     );
 };
 
-const create = (types, baseUrl) => (data) => (dispatch) => new Promise((resolve, reject) => {
-    fetch(baseUrl, 'POST', data).then(
+export const create = (prefix) => (data) => (dispatch) => new Promise((resolve, reject) => {
+    fetch('/' + prefix.join('/'), 'POST', data).then(
         (success) => {
             dispatch({
                 type: types.CREATE,
@@ -97,8 +91,8 @@ const create = (types, baseUrl) => (data) => (dispatch) => new Promise((resolve,
     );
 });
 
-const update = (types, baseUrl) => (id, data) => (dispatch) => new Promise((resolve, reject) => {
-    fetch(baseUrl + '/' + id, 'PUT', data).then(
+export const update = (prefix) => (id, data) => (dispatch) => new Promise((resolve, reject) => {
+    fetch('/' + prefix.join('/') + '/' + id, 'PUT', data).then(
         (success) => {
             dispatch({
                 type: types.UPDATE,
@@ -112,8 +106,8 @@ const update = (types, baseUrl) => (id, data) => (dispatch) => new Promise((reso
     );
 });
 
-const remove = (types, baseUrl) => (id) => (dispatch) => new Promise((resolve, reject) => {
-    fetch(baseUrl + '/' + id, 'DELETE').then(
+export const remove = (prefix) => (id) => (dispatch) => new Promise((resolve, reject) => {
+    fetch('/' + prefix.join('/') + '/' + id, 'DELETE').then(
         (success) => {
             dispatch({
                 type: types.DELETE,
@@ -127,27 +121,6 @@ const remove = (types, baseUrl) => (id) => (dispatch) => new Promise((resolve, r
     );
 });
 
-const invalidate = (types) => () => ({
+export const invalidate = (prefix) => () => ({
     type: types.INVALIDATE
 });
-
-const fillActions = (prefix, baseUrl) => {
-    const actions = {
-        getIfNeeded,
-        getAllIfNeeded,
-        get,
-        getAll,
-        create,
-        update,
-        remove,
-        invalidate
-    };
-    const types = typesCreator(prefix);
-    let response = {};
-    Object.keys(actions).forEach((actionKey) => {
-        response[actionKey] = actions[actionKey](types, baseUrl, prefix)
-    });
-    return response;
-};
-
-export default (prefix, baseUrl) => fillActions(prefix, baseUrl)

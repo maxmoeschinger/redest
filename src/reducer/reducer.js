@@ -1,5 +1,4 @@
-import settings from '../settings';
-import addPrefix from '../addPrefix';
+import types from '../types';
 import loadAll from './loadAll';
 import loadOne from './loadOne';
 import create from './create';
@@ -7,24 +6,14 @@ import deleteReducer from './delete';
 import invalidate from './invalidate';
 import update from './update';
 
-export const newInitialState = (prefix) => ({
+export const newInitialState = () => ({
     entities: {},
     meta: {},
-    prefix: prefix.join('_'),
     children: {}
 });
 
-export const types = addPrefix(settings.internalPropPrefix, {
-    LOAD_ALL: 'LOAD_ALL',
-    LOAD_ONE: 'LOAD_ONE',
-    UPDATE: 'UPDATE',
-    CREATE: 'CREATE',
-    DELETE: 'DELETE',
-    INVALIDATE: 'INVALIDATE'
-});
-
-const reducer = (endpoints = [], prefix = []) => (state = newInitialState(prefix), action) => {
-    if (action.prefix === prefix.join('_')) {
+const reducer = (endpoints = [], prefix = []) => (state = newInitialState(), action) => {
+    if (action.prefix.join('_') === prefix.join('_')) {
         switch (action.type) {
             case types.LOAD_ALL:
                 return loadAll(state, action);

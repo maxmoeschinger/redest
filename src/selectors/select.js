@@ -1,6 +1,6 @@
 import selectMetaKey from './selectMetaKey';
 
-export default (state, filter = null) => {
+export default (state, prefix, filter) => {
     const metaKey = selectMetaKey(filter);
     const meta = state.meta[metaKey];
     let entities = [];

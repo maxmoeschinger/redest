@@ -52,11 +52,11 @@ const reducerSetup = {
 const store = {
     redest: {
         service: {
-            entities: [],
+            entities: {},
             meta: {},
             children: {
                 endpoint: {
-                    entities: [],
+                    entities: {},
                     meta: {}
                 }
             }

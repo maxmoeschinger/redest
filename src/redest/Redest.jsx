@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import buildPropsForComponent from './buildPropsForComponent';
 import check from './check';
@@ -23,12 +24,16 @@ export default (WrappedComponent, dataToRetrieve) => {
             this.check();
         }
         check() {
-            check(this.props, dataToRetrieve);
+            check(this.props, this.props.redest, dataToRetrieve);
         }
         render() {
             return (<WrappedComponent {...buildPropsForComponent(dataToRetrieve, this.props)}/>);
         }
     }
+
+    hoc.propTypes = {
+        redest: PropTypes.object.isRequired
+    };
 
     return connect((state, ownProps) => ({ redest: state.redest }))(hoc);
 }
