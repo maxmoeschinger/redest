@@ -27,12 +27,21 @@ export default (WrappedComponent, dataToRetrieve) => {
             check(this.props, this.props.redest, dataToRetrieve);
         }
         render() {
-            return (<WrappedComponent {...buildPropsForComponent(dataToRetrieve, this.props)}/>);
+            return (
+                <WrappedComponent
+                    {...buildPropsForComponent(
+                        dataToRetrieve,
+                        this.props.redest,
+                        this.props.dispatch
+                    )}
+                />
+            );
         }
     }
 
     hoc.propTypes = {
-        redest: PropTypes.object.isRequired
+        redest: PropTypes.object.isRequired,
+        dispatch: PropTypes.func.isRequired,
     };
 
     return connect((state, ownProps) => ({ redest: state.redest }))(hoc);
